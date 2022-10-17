@@ -2,13 +2,15 @@ require 'sinatra'
 require 'sequel'
 
 require_relative '../queue/connection'
+require_relative '../lib/monkey_patch'
+
 
 DB = Sequel.connect(adapter: 'postgres', host: 'localhost', port: 5432, database: 'fx_transactions', user: 'leon', password: ENV['DB_PASSWORD'])
 
 get '/transactions' do
     result = DB[:transactions]
     # return all the records from the people table as json
-    return result.all.to_json
+    return result.all.to_json(decimals:2)
 end
 
 get '/transactions/:id' do
