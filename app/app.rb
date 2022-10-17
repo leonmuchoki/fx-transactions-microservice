@@ -3,7 +3,7 @@ require 'sequel'
 
 require_relative '../queue/connection'
 
-DB = Sequel.connect(adapter: 'postgres', host: 'localhost', port: 5432, database: 'fx_transactions', user: 'leon', password: 'leomuch77')
+DB = Sequel.connect(adapter: 'postgres', host: 'localhost', port: 5432, database: 'fx_transactions', user: 'leon', password: ENV['DB_PASSWORD'])
 
 get '/transactions' do
     result = DB[:transactions]
